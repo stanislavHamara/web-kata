@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const WebpackNotifierPlugin = require('webpack-notifier')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
@@ -35,5 +36,6 @@ module.exports = {
   },
   plugins: [
     new WebpackNotifierPlugin(),
+    new OpenBrowserPlugin({ url: 'http://localhost:3000' })
   ]
 }
