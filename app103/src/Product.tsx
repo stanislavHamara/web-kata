@@ -17,7 +17,9 @@ class Product extends Component<Props, State> {
         this.state = { showDescription: false };
         this.toggleShowDescription = this.toggleShowDescription.bind(this);
     }
+
     toggleShowDescription() : void {
+        this.setState({ showDescription: !this.state.showDescription});
     }
 
     render(){
