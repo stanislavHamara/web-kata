@@ -7,32 +7,57 @@ import { IProduct, IProductCollection, ProductCollection, Product } from './Inte
 
 const data = GetData();
 
-class App extends Component<{}, IProductCollection> {
+interface IState {
+  productCollection: IProductCollection,
+  productNameFilter: string
+}
+
+class State implements IState {
+  constructor(
+    public productCollection: IProductCollection,
+    public productNameFilter: string
+  ){}
+}
+
+class App extends Component<{}, IState> {
   constructor() {
     super()
-    this.state = data;
+    this.state = new State(data, "");
 
     this.handleAddProduct = this.handleAddProduct.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
   }
 
   changeProductFilter(event: any) : void {
+    this.setState(new State(
+      this.state.productCollection,
+      event.target.name.value)
+    );
   }
 
   handleAddProduct(event: any) : void {
     event.preventDefault();
-    const newProductArray = [...this.state.products];
+    const newProductArray = [...this.state.productCollection.products];
 
-    newProductArray.push(
-      new Product(event.target.name.value, event.target.description.value)
+    newProductArray.push(new Product(
+      event.target.name.value,
+        event.target.description.value)
     );
 
-    this.setState(new ProductCollection(newProductArray));
+    this.setState(new State(
+        new ProductCollection(newProductArray),
+        this.state.productNameFilter)
+    );
   }
 
   removeProduct(product : IProduct) : void {
-    const newProductArray = _.filter(this.state.products, (p : IProduct) => p.name !== product.name);
-    this.setState(new ProductCollection(newProductArray));
+    const newProductArray = _.filter(this.state.productCollection.products,
+       (p : IProduct) => p.name !== product.name);
+
+    this.setState(
+      new State(new ProductCollection(newProductArray),
+      this.state.productNameFilter)
+    );
   }
 
   render() : JSX.Element {
