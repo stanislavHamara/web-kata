@@ -9,8 +9,8 @@ module.exports = {
   ],
   output: {
     filename: 'app.js',
-    publicPath: 'dist',
-    path: path.resolve('dist')
+    publicPath: 'public',
+    path: path.resolve('public')
   },
   devServer: {
     port: 3000,
@@ -30,7 +30,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.tsx?$/, loaders: ['babel-loader', 'ts-loader'], include: path.resolve('src') }
+      { test: /\.tsx?$/, loaders: ['babel-loader', 'ts-loader'], include: path.resolve('src') },
+      { test: /\.css$/, loaders: ['style-loader', 'css-loader'], include: path.resolve('src') }
     ]
   },
   plugins: [
