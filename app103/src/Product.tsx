@@ -14,14 +14,19 @@ interface State {
 class Product extends Component<Props, State> {
     constructor(props : Props){
         super(props)
-        this.setState({ showDescription: false });
+        this.state = { showDescription: false };
+        this.toggleShowDescription = this.toggleShowDescription.bind(this);
     }
+    toggleShowDescription() : void {
+    }
+
     render(){
         return <div className='product'>
             <div className='details'>
                 <div className='name'>{this.props.product.name}</div>
                 <div className='desc'>{this.state.showDescription ? this.props.product.description : null}</div>
-                {!this.state.showDescription ? (<button onClick={this.toggleShowDescription}>+</button>) : null }
+                {this.state.showDescription ? null : (<button onClick={this.toggleShowDescription}>+</button>) }
+                {this.state.showDescription ? (<button onClick={this.toggleShowDescription}>-</button>) : null }
             </div>
             <div className='actions'>
                 <div className='remove' title='fix me' onClick={() => this.props.removeProduct(this.props.product)}>x</div>
