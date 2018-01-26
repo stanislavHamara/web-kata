@@ -83,7 +83,8 @@ class App extends Component<{}, IState> {
         </form>
       </div>
       <div className='products-container'>
-        <Products productCollection={this.state} removeProduct={this.removeProduct} />
+        <Products productNameFilter={this.state.productNameFilter}
+         productCollection={this.state.productCollection} removeProduct={this.removeProduct} />
       </div>
     </div>
   }
