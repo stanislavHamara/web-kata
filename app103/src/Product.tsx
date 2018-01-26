@@ -7,12 +7,21 @@ interface Props {
     removeProduct : Function;
 }
 
-class Product extends Component<Props, {}> {
+interface State {
+    showDescription : boolean
+}
+
+class Product extends Component<Props, State> {
+    constructor(props : Props){
+        super(props)
+        this.setState({ showDescription: false });
+    }
     render(){
         return <div className='product'>
             <div className='details'>
                 <div className='name'>{this.props.product.name}</div>
-                <div className='desc'>{this.props.product.description}</div>
+                <div className='desc'>{this.state.showDescription ? this.props.product.description : null}</div>
+                {!this.state.showDescription ? (<button onClick={this.toggleShowDescription}>+</button>) : null }
             </div>
             <div className='actions'>
                 <div className='remove' title='fix me' onClick={() => this.props.removeProduct(this.props.product)}>x</div>
