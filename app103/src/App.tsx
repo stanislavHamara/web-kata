@@ -16,6 +16,9 @@ class App extends Component<{}, IProductCollection> {
     this.removeProduct = this.removeProduct.bind(this);
   }
 
+  changeProductFilter(event: any) : void {
+  }
+
   handleAddProduct(event: any) : void {
     event.preventDefault();
     const newProductArray = [...this.state.products];
@@ -38,6 +41,11 @@ class App extends Component<{}, IProductCollection> {
         <h2>Kata 3- Filter, show and hide objects</h2>
       </div>
       <div className='filter-products'>Filter products here...</div>
+      <form onSubmit={this.changeProductFilter}>
+        <label>Product to filter:
+            <input type='text' name='name' />
+        </label>
+      </form>
       <div className='add-product'>
         <form onSubmit={this.handleAddProduct}>
           <label>product name:
