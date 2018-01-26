@@ -4,16 +4,15 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
-  entry: [
-    'index.tsx'
-  ],
+  entry: './src/index.tsx',
   output: {
-    filename: 'app.js',
-    publicPath: 'public',
-    path: path.resolve('public')
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: ''
   },
   devServer: {
     port: 3000,
+    contentBase: path.resolve(__dirname, 'public'),
     historyApiFallback: true,
     inline: true,
     stats: {

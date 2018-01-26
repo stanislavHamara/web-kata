@@ -1,37 +1,38 @@
-import _ from 'underscore'
-import React, { Component } from 'react'
-import './App.css'
-import data from './data'
-import Products from './Products'
+import _ from 'underscore';
+import React, { Component, SyntheticEvent, FormEvent } from 'react';
+import './App.css';
+import { GetData } from './data';
+import Products from './Products';
+import { IProduct, IProductCollection, ProductCollection, Product } from './Interfaces';
 
-class App extends Component {
+const data = GetData();
 
-  constructor(props){
-    super(props)
-    this.state= {products: data.products}
+class App extends Component<{}, IProductCollection> {
+  constructor() {
+    super()
+    this.state = data;
 
-    this.handleAddProduct = this.handleAddProduct.bind(this)
-    this.removeProduct = this.removeProduct.bind(this)
+    this.handleAddProduct = this.handleAddProduct.bind(this);
+    this.removeProduct = this.removeProduct.bind(this);
   }
 
-  handleAddProduct(event){
-    event.preventDefault()
-    const products = [...this.state.products]
+  handleAddProduct(event: any) : void {
+    event.preventDefault();
+    const newProductArray = [...this.state.products];
 
-    products.push({
-      name: event.target.name.value,
-      description: event.target.description.value
-    })
+    newProductArray.push(
+      new Product(event.target.name.value, event.target.description.value)
+    );
 
-    this.setState({products: products})
+    this.setState(new ProductCollection(newProductArray));
   }
 
-  removeProduct(product){
-    const newProducts = _.filter(this.state.products, p => p.name !== product.name)
-    this.setState({products: newProducts})
+  removeProduct(product : IProduct) : void {
+    const newProductArray = _.filter(this.state.products, (p : IProduct) => p.name !== product.name);
+    this.setState(new ProductCollection(newProductArray));
   }
 
-  render() {
+  render() : JSX.Element {
     return <div className="App">
       <div className="App-header">
         <h2>Kata 3- Filter, show and hide objects</h2>
@@ -49,7 +50,7 @@ class App extends Component {
         </form>
       </div>
       <div className='products-container'>
-        <Products products={this.state.products} removeProduct={this.removeProduct} />
+        <Products productCollection={this.state} removeProduct={this.removeProduct} />
       </div>
     </div>
   }

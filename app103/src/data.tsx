@@ -1,4 +1,6 @@
-export default {
+import { IProductCollection } from "Interfaces";
+
+const data = {
     products: [
         {
             name: 'SQL Compare',
@@ -86,3 +88,9 @@ export default {
         },
     ]
 }
+
+function GetData() : IProductCollection {
+    return data;
+}
+
+export { GetData };
