@@ -26,10 +26,12 @@ class App extends Component<{}, IState> {
 
     this.handleAddProduct = this.handleAddProduct.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
+    this.changeProductFilter = this.changeProductFilter.bind(this);
   }
 
   changeProductFilter(event: any) : void {
-    this.setState(new State(
+    event.preventDefault();
+    this.setState(new State( 
       this.state.productCollection,
       event.target.name.value)
     );
@@ -41,8 +43,8 @@ class App extends Component<{}, IState> {
 
     newProductArray.push(new Product(
       event.target.name.value,
-        event.target.description.value)
-    );
+      event.target.description.value
+    ));
 
     this.setState(new State(
         new ProductCollection(newProductArray),
