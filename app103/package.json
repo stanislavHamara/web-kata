@@ -20,12 +20,8 @@
     "open-browser-webpack-plugin": "^0.0.5",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "ts-jest": "^19.0.10",
     "ts-loader": "^2.0.3",
-    "tslint": "^5.1.0",
-    "tslint-react": "^2.6.0",
     "typescript": "2.3",
-    "underscore": "^1.8.3",
     "webpack": "^2.4.1",
     "webpack-css-loaders": "^1.0.0",
     "webpack-dev-server": "^2.4.4"
