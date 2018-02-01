@@ -1,4 +1,4 @@
-import React, { Component, SyntheticEvent, FormEvent } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import { GetData } from './data';
 import Products from './Products';
