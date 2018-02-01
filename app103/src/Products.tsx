@@ -14,14 +14,24 @@ class Products extends Component<Props, {}> {
         return <div className='products'>
             {this.props.productCollection.products.map(
                 (p : IProduct, i : number) => {
-                    if(p.name !== this.props.productNameFilter){
-                        return <Product
+                    
+                    if(this.props.productNameFilter === "") {
+                            return <Product
                             product={p}
                             key={'product-' + i }
                             removeProduct={this.props.removeProduct}
                         />;
                     }
-            
+                    else {
+                        if(p.name === this.props.productNameFilter){
+                            return <Product
+                                product={p}
+                                key={'product-' + i }
+                                removeProduct={this.props.removeProduct}
+                            />;
+                        }
+                    }
+
                     return;
                 }
             )}
