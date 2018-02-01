@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import React, { Component, SyntheticEvent, FormEvent } from 'react';
 import './App.css';
 import { GetData } from './data';
@@ -53,9 +52,9 @@ class App extends Component<{}, IState> {
   }
 
   removeProduct(product : IProduct) : void {
-    const newProductArray = _.filter(this.state.productCollection.products,
-       (p : IProduct) => p.name !== product.name);
-
+    const newProductArray = this.state.productCollection.products.filter(
+      (p : IProduct) => p.name === product.name);
+    
     this.setState(
       new State(new ProductCollection(newProductArray),
       this.state.productNameFilter)
