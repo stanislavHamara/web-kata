@@ -1,4 +1,4 @@
-import { IProductCollection } from "Interfaces";
+import { IProductCollection } from 'Interfaces';
 
 const data = {
     products: [

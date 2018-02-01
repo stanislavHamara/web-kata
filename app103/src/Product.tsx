@@ -31,7 +31,7 @@ class Product extends Component<Props, State> {
                 {this.state.showDescription ? (<button onClick={this.toggleShowDescription}>-</button>) : null }
             </div>
             <div className='actions'>
-                <div className='remove' title='fix me' onClick={() => this.props.removeProduct(this.props.product)}>x</div>
+                <div className='remove' onClick={() => this.props.removeProduct(this.props.product)}>x</div>
             </div>
         </div>
     }

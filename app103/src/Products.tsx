@@ -15,7 +15,7 @@ class Products extends Component<Props, {}> {
             {this.props.productCollection.products.map(
                 (p : IProduct, i : number) => {
                     
-                    if(this.props.productNameFilter === "") {
+                    if(this.props.productNameFilter === '') {
                             return <Product
                             product={p}
                             key={'product-' + i }

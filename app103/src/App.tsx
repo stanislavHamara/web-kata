@@ -21,7 +21,7 @@ class State implements IState {
 class App extends Component<{}, IState> {
   constructor() {
     super()
-    this.state = new State(data, "");
+    this.state = new State(data, '');
 
     this.handleAddProduct = this.handleAddProduct.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
@@ -62,8 +62,8 @@ class App extends Component<{}, IState> {
   }
 
   render() : JSX.Element {
-    return <div className="App">
-      <div className="App-header">
+    return <div className='App'>
+      <div className='App-header'>
         <h2>Kata 3- Filter, show and hide objects</h2>
       </div>
       <div className='filter-products'>Filter products here...</div>
