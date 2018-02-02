@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
         return {
             ...state,
             inProgress: false,
-            products: action.payload.products
+            products: action.payload.product
         }
     case PRODUCT_ADD_REQUESTED:
         return {
@@ -44,6 +44,8 @@ export default (state = initialState, action) => {
             inProgress: false
         }
     }
+
+    return state;
 }
 
 function fetchProducts() {
