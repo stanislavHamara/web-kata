@@ -28,7 +28,7 @@ class ProductMenu extends Component {
         (p, i) => <ProductItem
           product={p}
           key={'product-' + i}
-          onProductRemove={(n) => this.props.onProductRemove(n)} />
+          onProductRemove={(n) => this.props.onProductRemove(n) } />
       )}
     </div>
   }

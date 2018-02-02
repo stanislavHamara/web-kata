@@ -31,6 +31,7 @@ class App extends Component {
     }
 
     this.props.addProduct(newProduct);
+    this.props.fetchProducts();
   }
 
   render() {
@@ -53,7 +54,10 @@ class App extends Component {
       <div className='products-container'>
         <ProductMenu
           products={this.props.products}
-          onProductRemove={n => this.props.removeProduct(n)} />
+          onProductRemove={n => {
+            this.props.removeProduct(n);
+            this.props.fetchProducts();
+          }} />
         <Route exact path='/products/:productName' component={
           props => <ProductContainer {...props} products={this.props.products} />
         } />
