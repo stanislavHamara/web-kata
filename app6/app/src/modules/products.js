@@ -5,8 +5,45 @@ const PRODUCT_ADD_COMPLETED = 'products/PRODUCT_ADD_COMPLETED';
 const PRODUCT_REMOVE_REQUESTED = 'products/PRODUCT_REMOVE_REQUESTED';
 const PRODUCT_REMOVE_COMPLETED = 'products/PRODUCT_REMOVE_COMPLETED';
 
+const initialState = {
+    inProgress: false,
+    product: null,
+}
+
 export default (state = initialState, action) => {
-  return state;
+    switch(action.type){
+    case PRODUCTS_REQUESTED:
+        return {
+            ...state,
+            inProgress: true
+        }
+    case PRODUCTS_COMPLETED:
+        return {
+            ...state,
+            inProgress: false,
+            product: action.payload.product
+        }
+    case PRODUCT_ADD_REQUESTED:
+        return {
+            ...state,
+            inProgress: true
+        }
+    case PRODUCT_ADD_COMPLETED:
+        return {
+            ...state,
+            inProgress: false
+        }
+    case PRODUCT_REMOVE_REQUESTED:
+        return {
+            ...state,
+            inProgress: true
+        }
+    case PRODUCT_REMOVE_COMPLETED:
+        return {
+            ...state,
+            inProgress: false
+        }
+    }
 }
 
 function fetchProducts() {
