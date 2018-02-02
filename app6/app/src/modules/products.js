@@ -1,0 +1,11 @@
+const PRODUCTS_REQUESTED = 'products/PRODUCTS_REQUESTED';
+const PRODUCTS_COMPLETED = 'products/PRODUCTS_COMPLETED';
+const PRODUCT_REMOVE_REQUESTED = 'products/PRODUCT_REMOVE_REQUESTED';
+const PRODUCT_REMOVE_COMPLETED = 'products/PRODUCT_REMOVE_COMPLETED';
+const PRODUCT_ADD_REQUESTED = 'products/PRODUCT_ADD_REQUESTED';
+const PRODUCT_ADD_COMPLETED = 'products/PRODUCT_ADD_COMPLETED';
+
+export default (state = initialState, action) => {
+  return state;
+}
+
