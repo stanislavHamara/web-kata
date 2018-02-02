@@ -7,7 +7,7 @@ const PRODUCT_REMOVE_COMPLETED = 'products/PRODUCT_REMOVE_COMPLETED';
 
 const initialState = {
     inProgress: false,
-    product: null,
+    products: []
 }
 
 export default (state = initialState, action) => {
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
         return {
             ...state,
             inProgress: false,
-            product: action.payload.product
+            products: action.payload.products
         }
     case PRODUCT_ADD_REQUESTED:
         return {
@@ -68,27 +68,20 @@ function fetchProducts() {
     }
 }
 
-function addProduct(product) {
-    const formData = new FormData();
-    formData.append( "json", JSON.stringify(product));
-
+function addProduct(newProduct) {
     return dispatch => {
         dispatch({ type: PRODUCT_ADD_REQUESTED })
-        const url = '/api/products/add'
-        fetch(url, {
+        fetch('api/products/add', {
             method: 'POST',
             headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             credentials: 'same-origin',
-            body: formData
-        }).then(response => {
-            return response.json()
+            body: JSON.stringify(newProduct)
+        }).then(r => {
+            return r.json()
         }).then(json => {
-            dispatch({
-            type: PRODUCT_ADD_COMPLETED
-            })
+            dispatch({ type: PRODUCT_ADD_COMPLETED })
         })
     }
 }
@@ -97,20 +90,18 @@ function removeProduct(productName) {
     return dispatch => {
         dispatch({ type: PRODUCT_REMOVE_REQUESTED })
         const url = '/api/products/delete/' + productName
-        fetch(url, {
+        fetch('/api/products/delete/'+productName, {
             method: 'DELETE',
             headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+              'Content-Type': 'application/json'
             },
             credentials: 'same-origin'
-        }).then(response => {
-            return response.json()
-        }).then(json => {
-            dispatch({
-            type: PRODUCT_REMOVE_COMPLETED,
-            payload: { product: json }
-            })
-        })
+          }).then(r => {
+            return r.json()
+          }).then(json => {
+            dispatch({ type: PRODUCT_REMOVE_COMPLETED })
+          })
     }
 }
+
+export { fetchProducts, removeProduct, addProduct };
