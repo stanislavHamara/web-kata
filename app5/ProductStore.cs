@@ -40,13 +40,6 @@ namespace app5
                 {
                     new Product
                     {
-                        Name = "SQL Compare",
-                        Description = "Compares and synchronizes SQL Server database schemas"
-                    }
-                },
-                {
-                    new Product
-                    {
                         Name= "SQL Data Compare",
                         Description = "Compares and synchronizes SQL Server database contents"
                     }

@@ -10,7 +10,18 @@ class App extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { products: data.products }
+    this.state = { products: [] }
+  }
+
+  componentWillMount() {
+    var that = this;
+    const products = fetch("/api/products/get").then((response) => {
+      response.json().then(function (result) {
+        that.setState({ products: result });
+      });
+    }, (error) => {
+    })
+
   }
 
   render() {
