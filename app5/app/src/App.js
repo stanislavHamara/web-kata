@@ -30,7 +30,7 @@ class App extends Component {
       name: e.target.name.value,
       description: e.target.description.value
     }
-    const updatedProducts = fetch("/api/products/add", {
+    fetch("/api/products/add", {
       method: "POST",
       body: JSON.stringify(newProduct),
       headers: {
@@ -42,6 +42,23 @@ class App extends Component {
         that.setState({ products: result });
       });
     })
+  }
+
+  deleteProduct = (args) => {
+    console.log(args);
+    var that = this;
+    fetch("/api/products/delete/" + args, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
+    }).then((response) => {
+      response.json().then((result) => {
+        that.setState({ products: result });
+      });
+    }, (error) => {
+    });
   }
 
   render() {
@@ -63,7 +80,7 @@ class App extends Component {
         </form>
       </div>
       <div className='products-container'>
-        <ProductMenu products={this.state.products} />
+        <ProductMenu products={this.state.products} deleteProduct={this.deleteProduct} />
         <Route exact path='/products/:productName' component={
           props => <ProductContainer {...props} products={this.state.products} />
         } />
