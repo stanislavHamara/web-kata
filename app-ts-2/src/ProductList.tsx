@@ -6,11 +6,21 @@ import './ProductList.css';
 interface ProductItemProps {
     product: Product;
     key: string;
+    deleteProduct: (product: string) => void;
 }
 
 interface ProductItemState { }
 
 class ProductItem extends Component<ProductItemProps, ProductItemState> {
+    constructor(props: ProductItemProps) { 
+        super(props);
+        this.deleteProduct = this.deleteProduct.bind(this);
+    }
+
+    deleteProduct(event: React.FormEvent<HTMLButtonElement>): void {
+        this.props.deleteProduct(this.props.product.name);
+    }
+
     render(): JSX.Element {
         return (
             <div className='product'>
@@ -19,7 +29,13 @@ class ProductItem extends Component<ProductItemProps, ProductItemState> {
                     <div className='desc'>{this.props.product.description}</div>
                 </div>
                 <div className='actions'>
-                    <div className='remove' title='fix me'>x</div>
+                    <button 
+                      className='remove' 
+                      title='delete'
+                      onClick={this.deleteProduct}
+                    >
+                        x
+                    </button>
                 </div>
             </div>);
     }
@@ -27,6 +43,7 @@ class ProductItem extends Component<ProductItemProps, ProductItemState> {
 
 interface ProductListProps {
     products: Product[];
+    deleteProduct: (product: string) => void;
 }
 
 interface ProductListState { }
@@ -37,7 +54,7 @@ class ProductList extends Component<ProductListProps, ProductListState> {
             <div className='products'>
                 {this.props.products.map(
                     (p, i) =>
-                        <ProductItem product={p} key={'product-' + i} />
+                        <ProductItem product={p} key={'product-' + i} deleteProduct={this.props.deleteProduct} />
                 )}
             </div>);
     }
