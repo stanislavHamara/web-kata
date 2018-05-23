@@ -29,6 +29,10 @@
     font-size: 10pt;
 }
 
-.product .actions .remove{
+.product .actions .remove {
+    cursor: pointer;
+}
+
+.product .descriptionToggle {
     cursor: pointer;
 }

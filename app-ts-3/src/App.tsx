@@ -12,17 +12,19 @@ interface AppProps { }
 interface AppState {
   products: Product[];
   productToAdd: Product | undefined;
+  productNameToFilter: string;
 }
 
 export default class App extends Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { products: data, productToAdd: undefined };
+    this.state = { products: data, productToAdd: undefined, productNameToFilter: '' };
 
     this.handleAddProduct = this.handleAddProduct.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
     this.handleProductNameChange = this.handleProductNameChange.bind(this);
     this.handleProductDescriptionChange = this.handleProductDescriptionChange.bind(this);
+    this.handleFilterProduct = this.handleFilterProduct.bind(this);
   }
 
   handleProductNameChange(event: React.FormEvent<HTMLInputElement>) {
@@ -53,6 +55,12 @@ export default class App extends Component<AppProps, AppState> {
     this.setState({ products, productToAdd: undefined });
   }
 
+  handleFilterProduct(event: React.FormEvent<HTMLInputElement>) {
+    const productToFilter = event.currentTarget.value;
+
+    this.setState({ productNameToFilter: productToFilter.toLowerCase() });
+  }
+
   removeProduct(product: Product): void {
 
     const products = this.state.products.filter(
@@ -65,13 +73,23 @@ export default class App extends Component<AppProps, AppState> {
 
     const productName = (this.state.productToAdd && this.state.productToAdd.name) || '';
     const productDescription = (this.state.productToAdd && this.state.productToAdd.description) || '';
+    const productNameToFilter = this.state.productNameToFilter;
+    const filteredProducts = this.state.products.filter(product =>
+       product.name.toLowerCase().includes(this.state.productNameToFilter));
 
     return (
       <div className='App'>
         <div className='App-header'>
           <h2>Kata 3- Filter, show and hide objects</h2>
         </div>
-        <div className='filter-products'>Filter products here...</div>
+        <div className='filter-products'>
+        <form> 
+          <label> 
+            Product name
+          </label>
+          <input type='text' value={productNameToFilter} onChange={this.handleFilterProduct}/>
+        </form>
+        </div>
         <div className='add-product'>
           <form onSubmit={this.handleAddProduct}>
             <label>product name:</label>
@@ -95,7 +113,7 @@ export default class App extends Component<AppProps, AppState> {
         </div>
         <div className='products-container'>
           <ProductsComponent
-            products={this.state.products}
+            products={filteredProducts}
             removeProduct={this.removeProduct}
           />
         </div>
