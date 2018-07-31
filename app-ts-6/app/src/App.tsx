@@ -12,13 +12,16 @@ import { RootState, RootAction } from './modules';
 import { fetchVersion } from './modules/versions';
 
 import './App.css';
+import { fetchProducts } from './modules/products';
 
 interface AppStateProps {
   version: string | undefined;
+  products: Product[];
 }
 
 interface AppDispatchProps {
   fetchVersion: () => void;
+  fetchProducts: () => void;
 }
 
 interface State {
@@ -37,29 +40,14 @@ class App extends Component<AppStateProps & AppDispatchProps, State> {
       newProductDescription: '',
 
     };
-    this.fetchProducts = this.fetchProducts.bind(this);
     this.addProduct = this.addProduct.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
     this.handleAddProduct = this.handleAddProduct.bind(this);
     this.onNewProductDescriptionChange = this.onNewProductDescriptionChange.bind(this);
     this.onNewProductNameChange = this.onNewProductNameChange.bind(this);
 
-    this.fetchProducts();
+    this.props.fetchProducts();
     this.props.fetchVersion();
-  }
-
-  fetchProducts() {
-    fetch('/api/products/get', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'same-origin'
-    }).then(r => {
-      return r.json();
-    }).then(json => {
-      this.setState({ products: json });
-    });
   }
 
   removeProduct(productName: string): void {
@@ -138,7 +126,7 @@ class App extends Component<AppStateProps & AppDispatchProps, State> {
           <Route
             exact={true}
             path='/products/:productName'
-            render={(props) => <ProductContainer {...props} products={this.state.products} />}
+            render={(props) => <ProductContainer {...props} products={this.props.products} />}
           />
         </div>
       </div>
@@ -148,11 +136,13 @@ class App extends Component<AppStateProps & AppDispatchProps, State> {
 
 const mapStateToProps = (state: RootState) => ({
   version: state.versions.version,
+  products: state.products.products
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => bindActionCreators(
   {
     fetchVersion,
+    fetchProducts
   },
   dispatch);
 
